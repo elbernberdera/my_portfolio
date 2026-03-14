@@ -1,64 +1,282 @@
 import Image from "next/image";
 
+
+const skills = [
+  "Web Development",
+  "Django",
+  "Laravel",
+  "Python",
+  "PHP",
+  "Java",
+  "JavaScript",
+  "UI/UX Design",
+  "Graphic Design (Photoshop, Illustrator)",
+];
+
+const projects = [
+  {
+    name: "Task Monitoring System",
+    description:
+      "Web-based task monitoring application to track work items, status, and progress for teams and projects.",
+    link: "https://github.com/elbernberdera/Task-Monitoring",
+    tech: ["Django", "PostgreSQL"],
+  },
+  {
+    name: "Smart Home Monitoring System",
+    description:
+      "Django and ESP32-based web application to remotely control home appliances, lighting, and security systems.",
+    link: "https://github.com/elbernberdera/Smart_home_monitoring",
+    tech: ["Django", "ESP32"],
+  },
+  {
+    name: "PhilHealth Inventory System",
+    description:
+      "Web-based inventory management system using a FIFO method to efficiently track and manage physical assets.",
+    link: "https://github.com/elbernberdera/PhilHealth_inventory",
+    tech: ["PHP", "MySQL"],
+  },
+  {
+    name: "DICT Job Portal",
+    description:
+      "Laravel web application to manage job postings, employer accounts, and applicant submissions.",
+    link: "https://github.com/elbernberdera/Job-Portal",
+    tech: ["Laravel", "MySQL"],
+    image: "/images/job_portal1.png",
+  },
+  {
+    name: "Network Automation Script",
+    description:
+      "Python script to automate and speed up manual configuration of network modems.",
+    link: "https://github.com/elbernberdera/script",
+    tech: ["Python", "Automation"],
+  },
+];
+
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="min-h-screen bg-zinc-50 text-zinc-900">
+      <main className="mx-auto flex min-h-screen max-w-4xl flex-col gap-16 px-6 py-16 sm:px-10 sm:py-20">
+        {/* Hero */}
+        <section className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-start gap-6">
+            <div className="hidden h-24 w-24 flex-shrink-0 overflow-hidden rounded-full border border-zinc-200 bg-zinc-100 sm:block">
+              <Image
+                src="/images/profile.jpg"
+                alt="Elbern Berdera"
+                width={96}
+                height={96}
+              />
+            </div>
+            <div className="space-y-4">
+            <p className="text-sm font-medium tracking-wide text-zinc-500">
+              Portfolio
+            </p>
+            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+                Elbern Berdera
+            </h1>
+            <p className="text-lg font-medium text-zinc-700">
+                WEB DEVELOPER, SOFTWARE DEVELOPER, AND GRAPHIC DESIGNER
+            </p>
+              <p className="max-w-xl text-xs leading-relaxed text-zinc-600">
+                <span className="block">
+                  <a
+                    href="mailto:elbernberdera@gmail.com"
+                    className="underline underline-offset-4"
+                  >
+                    elbernberdera@gmail.com
+                  </a>{" "}
+                  |{" "}
+                  <a
+                    href="https://linkedin.com/in/elbern-berdera-7ab345377"
+                    className="underline underline-offset-4"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    linkedin.com/in/elbern-berdera-7ab345377
+                  </a>{" "}
+                  | Brgy. Obrero, Butuan City, Philippines
+                </span>
+              </p>
+              <p className="max-w-xl text-sm leading-relaxed text-zinc-600">
+                A multi‑disciplinary developer with a passion for building clean
+                web experiences, crafting reliable software, and designing
+                visuals that communicate clearly.
+              </p>
+              <div className="flex flex-wrap gap-3 pt-2">
+                <a
+                  href="#projects"
+                  className="rounded-full bg-zinc-900 px-4 py-2 text-sm font-medium text-zinc-50 transition hover:bg-zinc-800"
+                >
+                  View projects
+                </a>
+                <a
+                  href="#contact"
+                  className="rounded-full border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-800 transition hover:border-zinc-800 hover:text-zinc-900"
+                >
+                  Contact me
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Skills */}
+        <section id="skills" className="space-y-4">
+          <h2 className="text-xl font-semibold tracking-tight">Skills</h2>
+          <p className="max-w-2xl text-sm text-zinc-600">
+            A mix of development and design skills that allow me to handle an
+            entire project from concept to deployment.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+          <div className="flex flex-wrap gap-2">
+            {skills.map((skill) => (
+              <span
+                key={skill}
+                className="rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs font-medium text-zinc-700"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        {/* Services */}
+        <section
+          id="services"
+          className="space-y-6 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm"
+        >
+          <h2 className="text-xl font-semibold tracking-tight">
+            What I can do for you
+          </h2>
+          <div className="grid gap-4 md:grid-cols-3">
+            <div className="space-y-2">
+              <h3 className="text-sm font-semibold">Web Applications</h3>
+              <p className="text-xs leading-relaxed text-zinc-600">
+                Build responsive, maintainable web apps using modern frameworks
+                and clean architecture.
+              </p>
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-sm font-semibold">Backend & APIs</h3>
+              <p className="text-xs leading-relaxed text-zinc-600">
+                Design and implement secure, well-documented APIs with Django or
+                Laravel, ready to power your products.
+              </p>
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-sm font-semibold">UI/UX & Branding</h3>
+              <p className="text-xs leading-relaxed text-zinc-600">
+                Create clean interfaces, graphics, and layouts that match your
+                brand and make your product easy to use.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Projects */}
+        <section id="projects" className="space-y-4">
+          <h2 className="text-xl font-semibold tracking-tight">Key Projects</h2>
+          
+          <div className="grid gap-4 md:grid-cols-2">
+            {projects.map((project) => (
+              <article
+                key={project.name}
+                className="flex flex-col justify-between rounded-xl border border-zinc-200 bg-white p-4 shadow-sm"
+              >
+                <div className="space-y-2">
+                  {project.image && (
+                    <div className="h-32 w-full overflow-hidden rounded-lg bg-zinc-100">
+                      <Image
+                        src={project.image}
+                        alt={project.name}
+                        width={400}
+                        height={200}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  )}
+                  <div className="space-y-1">
+                    <h3 className="text-sm font-semibold">{project.name}</h3>
+                    <p className="text-xs leading-relaxed text-zinc-600">
+                      {project.description}
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-3 flex items-center justify-between">
+                  <div className="flex flex-wrap gap-1">
+                    {project.tech.map((item) => (
+                      <span
+                        key={item}
+                        className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-medium text-zinc-700"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                  <a
+                    href={project.link}
+                    className="text-xs font-medium text-zinc-800 underline underline-offset-4 hover:text-zinc-950"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View on GitHub
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* About */}
+        <section id="about" className="space-y-4">
+          <h2 className="text-xl font-semibold tracking-tight">About</h2>
+          <p className="max-w-2xl text-sm leading-relaxed text-zinc-600">
+            I specialize in web development using Django and Laravel, and I am
+            proficient in Python, PHP, Java, and JavaScript. Alongside backend
+            and frontend development, I create UI/UX and graphic design work
+            using tools like Photoshop and Illustrator, allowing me to build
+            both functional and visually polished experiences.
+          </p>
+        </section>
+
+        {/* Contact */}
+        <section id="contact" className="space-y-4 border-t border-zinc-200 pt-8">
+          <h2 className="text-xl font-semibold tracking-tight">Contact</h2>
+          <div className="space-y-1 text-sm text-zinc-700">
+            <p>
+              Email:{" "}
+              <a
+                href="mailto:elbernberdera@gmail.com"
+                className="font-medium underline underline-offset-4"
+              >
+                elbernberdera@gmail.com
+              </a>
+            </p>
+            <p>
+              GitHub:{" "}
+              <a
+                href="https://github.com/elbernberdera"
+                target="_blank"
+                rel="noreferrer"
+                className="font-medium underline underline-offset-4"
+              >
+                github.com/elbernberdera
+              </a>
+            </p>
+            <p>
+              LinkedIn:{" "}
+              <a
+                href="https://linkedin.com/in/elbern-berdera-7ab345377"
+                target="_blank"
+                rel="noreferrer"
+                className="font-medium underline underline-offset-4"
+              >
+                linkedin.com/in/elbern-berdera-7ab345377
+              </a>
+            </p>
+          </div>
+
+
+        </section>
       </main>
     </div>
   );
