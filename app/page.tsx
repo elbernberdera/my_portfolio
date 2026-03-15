@@ -67,6 +67,13 @@ const graphics = [
       "Performance sportswear jersey layout designed in Photoshop with bold gradients and sponsor branding.",
     image: "/images/Loongsleeve With Hoodie1.png",
   },
+
+  {
+    name: "Custom t-shirt Design",
+    description:
+      "Performance sublimated t-shirt layout designed in Photoshop with bold gradients and sponsor branding.",
+    image: "/images/t-shirt.jpg",
+  },
 ];
 
 
