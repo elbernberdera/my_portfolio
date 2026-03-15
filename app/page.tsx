@@ -1,4 +1,8 @@
+
+
+"use client";
 import Image from "next/image";
+import { useState } from "react";
 
 
 const skills = [
@@ -19,14 +23,16 @@ const projects = [
     description:
       "Web-based task monitoring application to track work items, status, and progress for teams and projects.",
     link: "https://github.com/elbernberdera/Task-Monitoring",
-    tech: ["Django", "PostgreSQL"],
+    tech: ["Django", "Mysql"],
+    image: "/images/Task_Monitoring.png",
   },
   {
     name: "Smart Home Monitoring System",
     description:
       "Django and ESP32-based web application to remotely control home appliances, lighting, and security systems.",
     link: "https://github.com/elbernberdera/Smart_home_monitoring",
-    tech: ["Django", "ESP32"],
+    tech: ["Django", "MySQL", "ESP32"],
+    image: "/images/Smart_home_monitoring.png",
   },
   {
     name: "PhilHealth Inventory System",
@@ -34,6 +40,7 @@ const projects = [
       "Web-based inventory management system using a FIFO method to efficiently track and manage physical assets.",
     link: "https://github.com/elbernberdera/PhilHealth_inventory",
     tech: ["PHP", "MySQL"],
+    image: "/images/PhilHealth_inventory.png",
   },
   {
     name: "DICT Job Portal",
@@ -49,10 +56,38 @@ const projects = [
       "Python script to automate and speed up manual configuration of network modems.",
     link: "https://github.com/elbernberdera/script",
     tech: ["Python", "Automation"],
+    image: "/images/network_automation.png",
   },
 ];
 
+const graphics = [
+  {
+    name: "Custom Warmer Jacket Design",
+    description:
+      "Performance sportswear jersey layout designed in Photoshop with bold gradients and sponsor branding.",
+    image: "/images/Loongsleeve With Hoodie1.png",
+  },
+];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export default function Home() {
+  const [activeGraphic, setActiveGraphic] = useState<{
+    name: string;
+    image: string;
+  } | null>(null);
+
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
       <main className="mx-auto flex min-h-screen max-w-4xl flex-col gap-16 px-6 py-16 sm:px-10 sm:py-20">
@@ -175,7 +210,6 @@ export default function Home() {
         {/* Projects */}
         <section id="projects" className="space-y-4">
           <h2 className="text-xl font-semibold tracking-tight">Key Projects</h2>
-          
           <div className="grid gap-4 md:grid-cols-2">
             {projects.map((project) => (
               <article
@@ -183,17 +217,23 @@ export default function Home() {
                 className="flex flex-col justify-between rounded-xl border border-zinc-200 bg-white p-4 shadow-sm"
               >
                 <div className="space-y-2">
-                  {project.image && (
-                    <div className="h-32 w-full overflow-hidden rounded-lg bg-zinc-100">
-                      <Image
-                        src={project.image}
-                        alt={project.name}
-                        width={400}
-                        height={200}
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                  )}
+                {project.image && (
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setActiveGraphic({ name: project.name, image: project.image })
+                            }
+                            className="h-32 w-full overflow-hidden rounded-lg bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:ring-offset-2 focus:ring-offset-white"
+                          >
+                            <Image
+                              src={project.image}
+                              alt={project.name}
+                              width={400}
+                              height={200}
+                              className="h-full w-full object-cover transition hover:scale-105"
+                            />
+                          </button>
+                        )}
                   <div className="space-y-1">
                     <h3 className="text-sm font-semibold">{project.name}</h3>
                     <p className="text-xs leading-relaxed text-zinc-600">
@@ -225,6 +265,79 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        {/* Graphics */}
+        <section id="graphics" className="space-y-4">
+          <h2 className="text-xl font-semibold tracking-tight">Graphic Design</h2>
+          <p className="max-w-2xl text-sm text-zinc-600">
+            Selected graphic design work focusing on apparel, branding, and
+            promotional materials.
+          </p>
+          <div className="grid gap-4 md:grid-cols-2">
+            {graphics.map((item) => (
+              <article
+                key={item.name}
+                className="flex flex-col rounded-xl border border-zinc-200 bg-white p-4 shadow-sm"
+              >
+                {item.image && (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setActiveGraphic({ name: item.name, image: item.image })
+                    }
+                    className="mb-3 block h-40 w-full overflow-hidden rounded-lg bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:ring-offset-2 focus:ring-offset-white"
+                  >
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      width={400}
+                      height={240}
+                      className="h-full w-full object-cover transition hover:scale-105"
+                    />
+                  </button>
+                )}
+                <h3 className="text-sm font-semibold">{item.name}</h3>
+                <p className="mt-1 text-xs leading-relaxed text-zinc-600">
+                  {item.description}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {activeGraphic && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4"
+            onClick={() => setActiveGraphic(null)}
+          >
+            <div
+              className="relative max-h-[90vh] w-full max-w-3xl overflow-hidden rounded-2xl bg-white p-3 shadow-xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={() => setActiveGraphic(null)}
+                className="absolute right-3 top-3 rounded-full bg-black/70 px-3 py-1 text-xs font-medium text-white hover:bg-black"
+              >
+                Close
+              </button>
+              <div className="flex flex-col gap-3">
+                <div className="relative max-h-[70vh] w-full overflow-auto rounded-xl bg-zinc-900">
+                  <Image
+                    src={activeGraphic.image}
+                    alt={activeGraphic.name}
+                    width={1200}
+                    height={800}
+                    className="h-auto w-full object-contain"
+                  />
+                </div>
+                <p className="text-center text-sm font-medium text-zinc-900">
+                  {activeGraphic.name}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* About */}
         <section id="about" className="space-y-4">
