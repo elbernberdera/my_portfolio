@@ -24,7 +24,7 @@ const projects = [
       "Web-based task monitoring application to track work items, status, and progress for teams and projects.",
     link: "https://github.com/elbernberdera/Task-Monitoring",
     tech: ["Django", "Mysql"],
-    image: "/images/Task_Monitoring.png",
+    image: "/images/task_monitoring.png",
   },
   {
     name: "Smart Home Monitoring System",
@@ -40,7 +40,7 @@ const projects = [
       "Web-based inventory management system using a FIFO method to efficiently track and manage physical assets.",
     link: "https://github.com/elbernberdera/PhilHealth_inventory",
     tech: ["PHP", "MySQL"],
-    image: "/images/PhilHealth_inventory.png",
+    image: "/images/philHealth_inventory.png",
   },
   {
     name: "DICT Job Portal",
