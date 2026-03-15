@@ -358,7 +358,15 @@ export default function Home() {
             <p>
               Email:{" "}
               <a
-                href="mailto:elbernberdera@gmail.com"
+                href={
+                  "mailto:elbernberdera@gmail.com" +
+                  "?subject=" +
+                  encodeURIComponent("Project Inquiry from Portfolio") +
+                  "&body=" +
+                  encodeURIComponent(
+                    "Hi Elbern,\n\nI saw your portfolio and would like to discuss a project. Here are some details:\n\n- Project type:\n- Timeline:\n- Budget (range):\n\nBest,\n"
+                  )
+                }
                 className="font-medium underline underline-offset-4"
               >
                 elbernberdera@gmail.com
