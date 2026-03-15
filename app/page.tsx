@@ -114,7 +114,7 @@ export default function Home() {
               Portfolio
             </p>
             <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-                Elbern Berdera
+                El Bern S. Berdera
             </h1>
             <p className="text-lg font-medium text-zinc-700">
                 WEB DEVELOPER, SOFTWARE DEVELOPER, AND GRAPHIC DESIGNER
