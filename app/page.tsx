@@ -104,7 +104,7 @@ export default function Home() {
             <div className="hidden h-24 w-24 flex-shrink-0 overflow-hidden rounded-full border border-zinc-200 bg-zinc-100 sm:block">
               <Image
                 src="/images/profile.jpg"
-                alt="Elbern Berdera"
+                alt="El Bern S. Berdera"
                 width={96}
                 height={96}
               />
