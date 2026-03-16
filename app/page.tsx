@@ -24,7 +24,7 @@ const projects = [
       "Web-based task monitoring application to track work items, status, and progress for teams and projects.",
     link: "https://github.com/elbernberdera/Task-Monitoring",
     tech: ["Django", "Mysql"],
-    image: "/images/task_monitoring.png",
+    images: ["/images/task_monitoring.png"],
   },
   {
     name: "Smart Home Monitoring System",
@@ -32,7 +32,7 @@ const projects = [
       "Django and ESP32-based web application to remotely control home appliances, lighting, and security systems.",
     link: "https://github.com/elbernberdera/Smart_home_monitoring",
     tech: ["Django", "MySQL", "ESP32"],
-    image: "/images/Smart_home_monitoring.png",
+    images: ["/images/Smart_home_monitoring.png"],
   },
   {
     name: "PhilHealth Inventory System",
@@ -40,7 +40,7 @@ const projects = [
       "Web-based inventory management system using a FIFO method to efficiently track and manage physical assets.",
     link: "https://github.com/elbernberdera/PhilHealth_inventory",
     tech: ["PHP", "MySQL"],
-    image: "/images/philHealth_inventory.png",
+    images: ["/images/philHealth_inventory.png","/images/philHealth_inventory2.png"],
   },
   {
     name: "DICT Job Portal",
@@ -48,7 +48,7 @@ const projects = [
       "Laravel web application to manage job postings, employer accounts, and applicant submissions.",
     link: "https://github.com/elbernberdera/Job-Portal",
     tech: ["Laravel", "MySQL"],
-    image: "/images/job_portal1.png",
+    images: ["/images/job_portal1.png"],
   },
   {
     name: "Network Automation Script",
@@ -56,23 +56,40 @@ const projects = [
       "Python script to automate and speed up manual configuration of network modems.",
     link: "https://github.com/elbernberdera/script",
     tech: ["Python", "Automation"],
-    image: "/images/network_automation.png",
+    images: ["/images/network_automation.png"],
   },
 ];
+
+
+
 
 const graphics = [
   {
     name: "Custom Warmer Jacket Design",
     description:
-      "Performance sportswear jersey layout designed in Photoshop with bold gradients and sponsor branding.",
-    image: "/images/Loongsleeve With Hoodie1.png",
+      "Performance sportswear warmer jacket layouts designed in Photoshop with bold gradients and sponsor branding.",
+    images: [
+      "/images/warmer.png"
+    ],
   },
-
   {
-    name: "Custom t-shirt Design",
+    name: "Custom T‑Shirt Design",
     description:
-      "Performance sublimated t-shirt layout designed in Photoshop with bold gradients and sponsor branding.",
-    image: "/images/t-shirt.jpg",
+      "Performance sublimated t‑shirt layouts designed in Photoshop with bold gradients and sponsor branding.",
+    images: [
+      "/images/t-shirt.jpg",
+      "/images/t-shirt2.jpg",
+      "/images/sport1.jpg",
+    ],
+  },
+  {
+    name: "Custom Polo Shirt Design",
+    description:
+      "Performance polo shirt layouts designed in Photoshop with clean lines and professional branding.",
+    images: [
+      "/images/polo2.jpg",
+      "/images/polo1.jpg",
+    ],
   },
 ];
 
@@ -92,7 +109,7 @@ const graphics = [
 export default function Home() {
   const [activeGraphic, setActiveGraphic] = useState<{
     name: string;
-    image: string;
+    images: string[];
   } | null>(null);
 
   return (
@@ -224,23 +241,26 @@ export default function Home() {
                 className="flex flex-col justify-between rounded-xl border border-zinc-200 bg-white p-4 shadow-sm"
               >
                 <div className="space-y-2">
-                {project.image && (
-                          <button
-                            type="button"
-                            onClick={() =>
-                              setActiveGraphic({ name: project.name, image: project.image })
-                            }
-                            className="h-32 w-full overflow-hidden rounded-lg bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:ring-offset-2 focus:ring-offset-white"
-                          >
-                            <Image
-                              src={project.image}
-                              alt={project.name}
-                              width={400}
-                              height={200}
-                              className="h-full w-full object-cover transition hover:scale-105"
-                            />
-                          </button>
-                        )}
+                  {project.images?.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setActiveGraphic({
+                          name: project.name,
+                          images: project.images,
+                        })
+                      }
+                      className="h-32 w-full overflow-hidden rounded-lg bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:ring-offset-2 focus:ring-offset-white"
+                    >
+                      <Image
+                        src={project.images[0]}
+                        alt={project.name}
+                        width={400}
+                        height={200}
+                        className="h-full w-full object-cover transition hover:scale-105"
+                      />
+                    </button>
+                  )}
                   <div className="space-y-1">
                     <h3 className="text-sm font-semibold">{project.name}</h3>
                     <p className="text-xs leading-relaxed text-zinc-600">
@@ -286,16 +306,16 @@ export default function Home() {
                 key={item.name}
                 className="flex flex-col rounded-xl border border-zinc-200 bg-white p-4 shadow-sm"
               >
-                {item.image && (
+                {item.images?.length > 0 && (
                   <button
                     type="button"
                     onClick={() =>
-                      setActiveGraphic({ name: item.name, image: item.image })
+                      setActiveGraphic({ name: item.name, images: item.images })
                     }
                     className="mb-3 block h-40 w-full overflow-hidden rounded-lg bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:ring-offset-2 focus:ring-offset-white"
                   >
                     <Image
-                      src={item.image}
+                      src={item.images[0]}
                       alt={item.name}
                       width={400}
                       height={240}
@@ -329,14 +349,35 @@ export default function Home() {
                 Close
               </button>
               <div className="flex flex-col gap-3">
-                <div className="relative max-h-[70vh] w-full overflow-auto rounded-xl bg-zinc-900">
-                  <Image
-                    src={activeGraphic.image}
-                    alt={activeGraphic.name}
-                    width={1200}
-                    height={800}
-                    className="h-auto w-full object-contain"
-                  />
+                <div className="relative max-h-[70vh] w-full overflow-auto rounded-xl bg-zinc-900 p-3">
+                  {activeGraphic.images.length === 1 ? (
+                    <div className="relative w-full overflow-hidden rounded-lg bg-black">
+                      <Image
+                        src={activeGraphic.images[0]}
+                        alt={activeGraphic.name}
+                        width={1200}
+                        height={800}
+                        className="h-auto w-full object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <div className="grid gap-3 md:grid-cols-2">
+                      {activeGraphic.images.map((src) => (
+                        <div
+                          key={src}
+                          className="relative w-full overflow-hidden rounded-lg bg-black"
+                        >
+                          <Image
+                            src={src}
+                            alt={activeGraphic.name}
+                            width={1200}
+                            height={800}
+                            className="h-auto w-full object-contain"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
                 <p className="text-center text-sm font-medium text-zinc-900">
                   {activeGraphic.name}
