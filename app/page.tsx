@@ -4,6 +4,16 @@
 import Image from "next/image";
 import { useState } from "react";
 
+type Project = {
+  name: string;
+  description: string;
+  link: string | null;
+  tech: string[];
+  images: string[];
+  highlights: string[];
+  status?: string;
+  repoNote?: string;
+};
 
 const skills = [
   "Web Development",
@@ -17,7 +27,7 @@ const skills = [
   "Graphic Design (Photoshop, Illustrator)",
 ];
 
-const projects = [
+const projects: Project[] = [
   {
     name: "Task Monitoring System",
     description:
