@@ -21,42 +21,81 @@ const projects = [
   {
     name: "Task Monitoring System",
     description:
-      "Web-based task monitoring application to track work items, status, and progress for teams and projects.",
+      "A web-based task monitoring system designed to help teams track work items end‑to‑end — from assignment to completion — with clear status visibility and progress reporting.",
     link: "https://github.com/elbernberdera/Task-Monitoring",
     tech: ["Django", "Mysql"],
     images: ["/images/task_monitoring.png"],
+    highlights: [
+      "Create and assign tasks with status tracking",
+      "Progress monitoring dashboard for teams",
+      "Organized workflow to reduce missed work items",
+    ],
   },
   {
     name: "Smart Home Monitoring System",
     description:
-      "Django and ESP32-based web application to remotely control home appliances, lighting, and security systems.",
+      "A Django + ESP32 smart home web app that lets you monitor and control connected appliances, lighting, and security features remotely with a simple, user-friendly interface.",
     link: "https://github.com/elbernberdera/Smart_home_monitoring",
     tech: ["Django", "MySQL", "ESP32"],
     images: ["/images/Smart_home_monitoring.png"],
+    highlights: [
+      "Remote device control and monitoring",
+      "ESP32 integration for real-time automation",
+      "Centralized controls for home systems",
+    ],
   },
   {
     name: "PhilHealth Inventory System",
     description:
-      "Web-based inventory management system using a FIFO method to efficiently track and manage physical assets.",
+      "A web-based inventory management system built around a FIFO process to keep stock movement accurate, auditable, and easy to manage for day-to-day operations.",
     link: "https://github.com/elbernberdera/PhilHealth_inventory",
     tech: ["PHP", "MySQL"],
     images: ["/images/philHealth_inventory.png","/images/philHealth_inventory2.png"],
+    highlights: [
+      "FIFO-based stock movement tracking",
+      "Asset/stock monitoring for day-to-day operations",
+      "Improves accuracy and inventory visibility",
+    ],
   },
   {
     name: "DICT Job Portal",
     description:
-      "Laravel web application to manage job postings, employer accounts, and applicant submissions.",
+      "A full-featured Laravel job portal that manages job listings, employer accounts, and applicant submissions — built to support recruitment workflows with a clean and accessible UI.",
     link: "https://github.com/elbernberdera/Job-Portal",
     tech: ["Laravel", "MySQL"],
     images: ["/images/job_portal1.png"],
+    highlights: [
+      "Job posting and search experience",
+      "Employer and applicant account flows",
+      "Application submission and basic management",
+    ],
   },
   {
     name: "Network Automation Script",
     description:
-      "Python script to automate and speed up manual configuration of network modems.",
+      "A Python automation tool that speeds up repetitive modem configuration tasks by standardizing steps and reducing manual setup time.",
     link: "https://github.com/elbernberdera/script",
     tech: ["Python", "Automation"],
     images: ["/images/network_automation.png"],
+    highlights: [
+      "Automates repetitive configuration steps",
+      "Reduces manual errors during setup",
+      "Improves setup time and consistency",
+    ],
+  },
+  {
+    name: "Agila Autosupply Inventory System",
+    description:
+      "A Django-based inventory system for an auto supply business, designed to manage items, track stock movement, and support faster day-to-day inventory operations.",
+    status: "Under development",
+    link: null,
+    tech: ["Django", "mysql"],
+    images: ["/images/agila1.png","/images/agila2.png"],
+    highlights: [
+      "Inventory item management and monitoring",
+      "Tracks stock availability for daily operations",
+      "Built for a real business workflow",
+    ],
   },
 ];
 
@@ -157,9 +196,9 @@ export default function Home() {
                 </span>
               </p>
               <p className="max-w-xl text-sm leading-relaxed text-zinc-600">
-                A multi‑disciplinary developer with a passion for building clean
-                web experiences, crafting reliable software, and designing
-                visuals that communicate clearly.
+              A multi-disciplinary creator dedicated to building responsive web applications, 
+              robust APIs, and intuitive user interfaces. I combine strong technical problem-solving 
+              with creative design to deliver complete, highly polished digital experiences.
               </p>
               <div className="flex flex-wrap gap-3 pt-2">
                 <a
@@ -183,8 +222,10 @@ export default function Home() {
         <section id="skills" className="space-y-4">
           <h2 className="text-xl font-semibold tracking-tight">Skills</h2>
           <p className="max-w-2xl text-sm text-zinc-600">
-            A mix of development and design skills that allow me to handle an
-            entire project from concept to deployment.
+          Specializing in full-stack web development, I build responsive, user-centric frontends 
+          and architect robust, secure backend systems. From designing database schemas and developing APIs to
+           polishing the final user interface, 
+          I have the technical depth to manage the entire application lifecycle.
           </p>
           <div className="flex flex-wrap gap-2">
             {skills.map((skill) => (
@@ -262,10 +303,27 @@ export default function Home() {
                     </button>
                   )}
                   <div className="space-y-1">
-                    <h3 className="text-sm font-semibold">{project.name}</h3>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="text-sm font-semibold">{project.name}</h3>
+                      {project.status ? (
+                        <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold text-amber-900">
+                          {project.status}
+                        </span>
+                      ) : null}
+                    </div>
                     <p className="text-xs leading-relaxed text-zinc-600">
                       {project.description}
                     </p>
+                    {project.highlights?.length > 0 && (
+                      <ul className="mt-2 space-y-1 text-xs text-zinc-600">
+                        {project.highlights.map((point) => (
+                          <li key={point} className="flex gap-2">
+                            <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-zinc-400" />
+                            <span className="leading-relaxed">{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 </div>
                 <div className="mt-3 flex items-center justify-between">
@@ -279,14 +337,20 @@ export default function Home() {
                       </span>
                     ))}
                   </div>
-                  <a
-                    href={project.link}
-                    className="text-xs font-medium text-zinc-800 underline underline-offset-4 hover:text-zinc-950"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    View on GitHub
-                  </a>
+                  {project.link ? (
+                    <a
+                      href={project.link}
+                      className="text-xs font-medium text-zinc-800 underline underline-offset-4 hover:text-zinc-950"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      View on GitHub
+                    </a>
+                  ) : (
+                    <span className="text-xs font-medium text-zinc-500">
+                      {project.repoNote ?? "GitHub repository coming soon."}
+                    </span>
+                  )}
                 </div>
               </article>
             ))}
@@ -391,11 +455,13 @@ export default function Home() {
         <section id="about" className="space-y-4">
           <h2 className="text-xl font-semibold tracking-tight">About</h2>
           <p className="max-w-2xl text-sm leading-relaxed text-zinc-600">
-            I specialize in web development using Django and Laravel, and I am
-            proficient in Python, PHP, Java, and JavaScript. Alongside backend
-            and frontend development, I create UI/UX and graphic design work
-            using tools like Photoshop and Illustrator, allowing me to build
-            both functional and visually polished experiences.
+          I am a full-stack web developer and designer dedicated to building reliable, end-to-end digital solutions. 
+          I specialize in leveraging frameworks like Django and Laravel to engineer secure backend systems, while 
+           using JavaScript to create dynamic, responsive frontends. Beyond standard web development, 
+           I enjoy tackling unique technical challenges—whether that means scripting network automations, 
+           integrating IoT components, or developing efficient management platforms. By combining this technical 
+           depth with a sharp eye for UI/UX and graphic design using Photoshop and Illustrator, I bridge the gap 
+           between complex functionality and polished, user-friendly experiences.
           </p>
         </section>
 
