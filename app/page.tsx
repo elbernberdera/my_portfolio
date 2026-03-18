@@ -195,7 +195,7 @@ export default function Home() {
                   | Brgy. Obrero, Butuan City, Philippines
                 </span>
               </p>
-              <p className="max-w-xl text-sm leading-relaxed text-zinc-600">
+              <p className="max-w-xl text-sm leading-relaxed text-zinc-600 text-justify">
               A multi-disciplinary creator dedicated to building responsive web applications, 
               robust APIs, and intuitive user interfaces. I combine strong technical problem-solving 
               with creative design to deliver complete, highly polished digital experiences.
@@ -221,7 +221,7 @@ export default function Home() {
         {/* Skills */}
         <section id="skills" className="space-y-4">
           <h2 className="text-xl font-semibold tracking-tight">Skills</h2>
-          <p className="max-w-2xl text-sm text-zinc-600">
+          <p className="max-w-2xl text-sm text-zinc-600 text-justify">
           Specializing in full-stack web development, I build responsive, user-centric frontends 
           and architect robust, secure backend systems. From designing database schemas and developing APIs to
            polishing the final user interface, 
@@ -454,7 +454,7 @@ export default function Home() {
         {/* About */}
         <section id="about" className="space-y-4">
           <h2 className="text-xl font-semibold tracking-tight">About</h2>
-          <p className="max-w-2xl text-sm leading-relaxed text-zinc-600">
+          <p className="max-w-2xl text-sm leading-relaxed text-zinc-600 text-justify">
           I am a full-stack web developer and designer dedicated to building reliable, end-to-end digital solutions. 
           I specialize in leveraging frameworks like Django and Laravel to engineer secure backend systems, while 
            using JavaScript to create dynamic, responsive frontends. Beyond standard web development, 
