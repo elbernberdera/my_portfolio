@@ -82,22 +82,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    name: "PhilHealth Inventory System",
-    description:
-      "A web-based inventory management system built around a FIFO process to keep stock movement accurate, auditable, and easy to manage for day-to-day operations.",
-    link: "https://github.com/elbernberdera/PhilHealth_inventory",
-    tech: ["PHP", "MySQL"],
-    images: [
-      "/images/philHealth_inventory.png",
-      "/images/philHealth_inventory2.png",
-    ],
-    highlights: [
-      "FIFO-based stock movement tracking",
-      "Asset/stock monitoring for day-to-day operations",
-      "Improves accuracy and inventory visibility",
-    ],
-  },
-  {
     name: "DICT Job Portal",
     description:
       "A full-featured Laravel job portal that manages job listings, employer accounts, and applicant submissions — built to support recruitment workflows with a clean and accessible UI.",
