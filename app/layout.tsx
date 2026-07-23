@@ -18,10 +18,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://elbernberdera-portfolio.vercel.app"),
   title: {
     default: "El Bern S. Berdera | Full-Stack Web Developer",
-    template: "%s | Elbern S. Berdera",
+    template: "%s | El Bern S. Berdera",
   },
   description:
-    "Portfolio of Elbern S. Berdera, a full-stack web developer building custom web applications, internal tools, backend APIs, database integrations, and automated data pipelines.",
+    "Portfolio of El Bern S. Berdera, a full-stack web developer building custom web applications, internal tools, backend APIs, database integrations, and automated data pipelines.",
   keywords: [
     "Elbern Berdera",
     "Full-Stack Web Developer",
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
     "Butuan City",
     "Philippines",
   ],
-  authors: [{ name: "Elbern S. Berdera" }],
-  creator: "Elbern S. Berdera",
+  authors: [{ name: "El bern S. Berdera" }],
+  creator: "El bern S. Berdera",
   alternates: {
     canonical: "/",
   },
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: "El Bern S. Berdera | Full-Stack Web Developer",
     description:
       "Custom web applications, internal tools, backend APIs, database integrations, and automated data workflows for startups and remote teams.",
-    siteName: "Elbern S. Berdera Portfolio",
+    siteName: "El bern S. Berdera Portfolio",
     locale: "en_PH",
   },
   twitter: {

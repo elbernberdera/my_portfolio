@@ -14,7 +14,7 @@ import ImageModal from "./components/ImageModal";
 const LINKEDIN_URL = "https://www.linkedin.com/in/elbern-berdera/";
 const GITHUB_URL = "https://github.com/elbernberdera";
 const RESUME_URL =
-  "/resume/Elbern_Berdera_Full_Stack_Developer_Resume.pdf";
+  "/resume/El_Bern_Berdera_Full_Stack_Developer_Resume.pdf";
 
 const navItems = [
   { id: "services", label: "Services" },
@@ -36,7 +36,7 @@ const featuredSkills = Array.from(
     "Data Pipelines",
     "Workflow Automation",
     ...skills,
-  ])
+  ]),
 );
 
 const services = [
@@ -104,10 +104,12 @@ const experience = [
 ];
 
 const getTechColor = (tech: string) =>
-  techColors[tech] ?? "bg-indigo-500/20 text-indigo-300 border-indigo-500/30";
+  techColors[tech] ??
+  "bg-indigo-500/20 text-indigo-300 border-indigo-500/30";
 
 const getSkillColor = (skill: string) =>
-  skillColors[skill] ?? "bg-indigo-500/20 text-indigo-300 border-indigo-500/30";
+  skillColors[skill] ??
+  "bg-indigo-500/20 text-indigo-300 border-indigo-500/30";
 
 function SectionHeader({
   eyebrow,
@@ -123,6 +125,7 @@ function SectionHeader({
           {eyebrow}
         </p>
       )}
+
       <h2 className="flex items-center gap-3 text-2xl font-bold tracking-tight text-slate-100 sm:text-3xl">
         <span className="h-7 w-1 rounded-full bg-gradient-to-b from-indigo-500 to-cyan-500" />
         {children}
@@ -160,7 +163,7 @@ export default function Home() {
     encodeURIComponent("Project Inquiry from Portfolio") +
     "&body=" +
     encodeURIComponent(
-      "Hi Elbern,\n\nI saw your portfolio and would like to discuss a project.\n\n- Project type:\n- Timeline:\n- Budget range:\n\nBest,\n"
+      "Hi El Bern,\n\nI saw your portfolio and would like to discuss a project.\n\n- Project type:\n- Timeline:\n- Budget range:\n\nBest,\n",
     );
 
   return (
@@ -174,7 +177,7 @@ export default function Home() {
             href="#top"
             className="shrink-0 bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-sm font-bold tracking-tight text-transparent sm:text-base"
           >
-            Elbern S. Berdera
+            El Bern S. Berdera
           </a>
 
           <div className="flex min-w-0 items-center gap-4 overflow-x-auto whitespace-nowrap pb-1 text-sm font-medium text-slate-400 sm:gap-6 sm:pb-0">
@@ -187,13 +190,14 @@ export default function Home() {
                 {item.label}
               </a>
             ))}
+
             <a
               href={RESUME_URL}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-1 rounded-full border border-indigo-500/40 px-3 py-1.5 text-indigo-300 transition hover:border-indigo-400 hover:bg-indigo-500/10"
             >
-              Résumé
+              View Résumé
               <ExternalLinkIcon />
             </a>
           </div>
@@ -222,7 +226,7 @@ export default function Home() {
                   id="hero-heading"
                   className="bg-gradient-to-r from-indigo-300 via-purple-300 to-cyan-300 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl lg:text-6xl"
                 >
-                  Elbern S. Berdera
+                  El Bern S. Berdera
                 </h1>
 
                 <p className="text-base font-semibold uppercase tracking-[0.18em] text-slate-300 sm:text-lg">
@@ -231,8 +235,8 @@ export default function Home() {
               </div>
 
               <p className="max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-                I build reliable custom web applications, internal tools, backend APIs,
-                and automated data workflows for startups and remote teams.
+                I build reliable custom web applications, internal tools, backend
+                APIs, and automated data workflows for startups and remote teams.
               </p>
 
               <p className="text-sm font-medium text-slate-400 sm:text-base">
@@ -246,16 +250,18 @@ export default function Home() {
                 >
                   View Projects
                 </a>
+
                 <a
                   href={emailHref}
                   className="rounded-full border border-slate-700 px-5 py-2.5 text-sm font-semibold text-slate-200 transition hover:-translate-y-0.5 hover:border-indigo-500/60 hover:text-indigo-200"
                 >
                   Discuss a Project
                 </a>
+
                 <a
                   href={RESUME_URL}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 rounded-full border border-slate-700 px-5 py-2.5 text-sm font-semibold text-slate-300 transition hover:-translate-y-0.5 hover:border-cyan-500/60 hover:text-cyan-200"
                 >
                   View Résumé
@@ -270,15 +276,18 @@ export default function Home() {
                 >
                   elbernberdera@gmail.com
                 </a>
+
                 <span aria-hidden="true">·</span>
+
                 <a
                   href={LINKEDIN_URL}
                   className="transition-colors hover:text-indigo-300"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                 >
                   LinkedIn
                 </a>
+
                 <span aria-hidden="true">·</span>
                 <span>Butuan City, Philippines</span>
               </div>
@@ -287,7 +296,7 @@ export default function Home() {
             <div className="mx-auto h-52 w-52 overflow-hidden rounded-3xl border border-indigo-400/30 bg-slate-900 shadow-xl shadow-indigo-950/40 ring-1 ring-white/5 sm:h-60 sm:w-60 lg:mx-0">
               <Image
                 src="/images/profile.jpg"
-                alt="Professional portrait of Elbern S. Berdera"
+                alt="Professional portrait of El Bern S. Berdera"
                 width={480}
                 height={480}
                 priority
@@ -298,17 +307,23 @@ export default function Home() {
         </section>
 
         <section id="skills" className="scroll-mt-24 space-y-7">
-          <SectionHeader eyebrow="Technical foundation">Core Skills</SectionHeader>
+          <SectionHeader eyebrow="Technical foundation">
+            Core Skills
+          </SectionHeader>
+
           <p className="max-w-3xl text-base leading-8 text-slate-400">
-            I work across the application lifecycle—from database architecture and backend
-            services to frontend integration, deployment, debugging, automation, and
-            technical documentation.
+            I work across the application lifecycle—from database architecture
+            and backend services to frontend integration, deployment, debugging,
+            automation, and technical documentation.
           </p>
+
           <div className="flex flex-wrap gap-2.5">
             {featuredSkills.map((skill) => (
               <span
                 key={skill}
-                className={`rounded-full border px-3 py-1.5 text-sm font-medium ${getSkillColor(skill)}`}
+                className={`rounded-full border px-3 py-1.5 text-sm font-medium ${getSkillColor(
+                  skill,
+                )}`}
               >
                 {skill}
               </span>
@@ -318,6 +333,7 @@ export default function Home() {
 
         <section id="services" className="scroll-mt-24 space-y-7">
           <SectionHeader eyebrow="How I help">Services</SectionHeader>
+
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {services.map((service) => (
               <article
@@ -327,9 +343,11 @@ export default function Home() {
                 <div
                   className={`mb-5 h-1 w-14 rounded-full bg-gradient-to-r ${service.gradient}`}
                 />
+
                 <h3 className="text-base font-semibold text-slate-100">
                   {service.title}
                 </h3>
+
                 <p className="mt-3 text-sm leading-7 text-slate-400">
                   {service.description}
                 </p>
@@ -341,6 +359,7 @@ export default function Home() {
         <section id="projects" className="scroll-mt-24 space-y-7">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <SectionHeader eyebrow="Selected work">Key Projects</SectionHeader>
+
             <p className="max-w-md text-sm leading-6 text-slate-500">
               Click a project image to review additional screenshots.
             </p>
@@ -380,6 +399,7 @@ export default function Home() {
                       <h3 className="text-lg font-semibold text-slate-100">
                         {project.name}
                       </h3>
+
                       {project.status && (
                         <span className="rounded-full border border-amber-500/30 bg-amber-500/15 px-2.5 py-1 text-[11px] font-semibold text-amber-300">
                           {project.status}
@@ -409,7 +429,9 @@ export default function Home() {
                     {project.tech.map((item) => (
                       <span
                         key={item}
-                        className={`rounded-full border px-2.5 py-1 text-[11px] font-medium ${getTechColor(item)}`}
+                        className={`rounded-full border px-2.5 py-1 text-[11px] font-medium ${getTechColor(
+                          item,
+                        )}`}
                       >
                         {item}
                       </span>
@@ -421,7 +443,7 @@ export default function Home() {
                       href={project.link}
                       className="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-indigo-300 transition-colors hover:text-indigo-200"
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                     >
                       View repository
                       <ExternalLinkIcon />
@@ -440,6 +462,7 @@ export default function Home() {
             <article className="flex flex-col justify-between overflow-hidden rounded-2xl border border-cyan-500/25 bg-gradient-to-br from-slate-900 via-slate-900 to-cyan-950/30 transition hover:-translate-y-1 hover:border-cyan-400/40">
               <div className="relative flex h-52 items-center justify-center overflow-hidden border-b border-slate-800/80 bg-slate-950/70 p-8">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.12),transparent_65%)]" />
+
                 <div className="relative grid w-full max-w-md grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-3 text-center text-xs font-semibold text-slate-300">
                   <span className="rounded-lg border border-indigo-500/30 bg-indigo-500/10 px-3 py-4">
                     Extract
@@ -460,15 +483,19 @@ export default function Home() {
                   <h3 className="text-lg font-semibold text-slate-100">
                     Automated Data Extraction & Enrichment Pipeline
                   </h3>
+
                   <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-semibold text-cyan-300">
                     Sanitized case study
                   </span>
                 </div>
+
                 <p className="text-sm leading-7 text-slate-400">
-                  A resilient workflow for collecting source records, extracting structured
-                  information, validating outputs, processing batches, retrying transient
-                  failures, and synchronizing results across relational and document databases.
+                  A resilient workflow for collecting source records, extracting
+                  structured information, validating outputs, processing batches,
+                  retrying transient failures, and synchronizing results across
+                  relational and document databases.
                 </p>
+
                 <ul className="space-y-2 text-sm text-slate-400">
                   {[
                     "Schema validation and post-run verification",
@@ -493,7 +520,9 @@ export default function Home() {
                 ].map((item) => (
                   <span
                     key={item}
-                    className={`rounded-full border px-2.5 py-1 text-[11px] font-medium ${getTechColor(item)}`}
+                    className={`rounded-full border px-2.5 py-1 text-[11px] font-medium ${getTechColor(
+                      item,
+                    )}`}
                   >
                     {item}
                   </span>
@@ -504,7 +533,10 @@ export default function Home() {
         </section>
 
         <section id="experience" className="scroll-mt-24 space-y-8">
-          <SectionHeader eyebrow="Professional background">Experience</SectionHeader>
+          <SectionHeader eyebrow="Professional background">
+            Experience
+          </SectionHeader>
+
           <div className="relative space-y-6 before:absolute before:bottom-4 before:left-3 before:top-4 before:w-px before:bg-slate-800">
             {experience.map((item) => (
               <article
@@ -512,20 +544,24 @@ export default function Home() {
                 className="relative ml-8 rounded-2xl border border-slate-800 bg-slate-900/55 p-6"
               >
                 <span className="absolute -left-[2.05rem] top-7 h-3 w-3 rounded-full border-2 border-slate-950 bg-gradient-to-br from-indigo-400 to-cyan-400 ring-4 ring-slate-950" />
+
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <h3 className="text-lg font-semibold text-slate-100">
                       {item.role}
                     </h3>
+
                     <p className="mt-1 text-sm font-medium text-indigo-300">
                       {item.organization}
                     </p>
                   </div>
+
                   <div className="text-sm text-slate-500 sm:text-right">
                     <p>{item.period}</p>
                     <p>{item.location}</p>
                   </div>
                 </div>
+
                 <ul className="mt-5 grid gap-2 text-sm leading-6 text-slate-400">
                   {item.highlights.map((highlight) => (
                     <li key={highlight} className="flex gap-3">
@@ -540,11 +576,15 @@ export default function Home() {
         </section>
 
         <section id="design-work" className="scroll-mt-24 space-y-7">
-          <SectionHeader eyebrow="Supporting capability">Selected Design Work</SectionHeader>
+          <SectionHeader eyebrow="Supporting capability">
+            Selected Design Work
+          </SectionHeader>
+
           <p className="max-w-3xl text-base leading-8 text-slate-400">
-            Selected visual-design work demonstrating supporting experience in branding,
-            apparel layouts, and production-ready promotional graphics.
+            Selected visual-design work demonstrating supporting experience in
+            branding, apparel layouts, and production-ready promotional graphics.
           </p>
+
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {graphics.map((item) => (
               <article
@@ -556,7 +596,10 @@ export default function Home() {
                     type="button"
                     aria-label={`Open images for ${item.name}`}
                     onClick={() =>
-                      setActiveGraphic({ name: item.name, images: item.images })
+                      setActiveGraphic({
+                        name: item.name,
+                        images: item.images,
+                      })
                     }
                     className="group/image block h-52 w-full overflow-hidden bg-slate-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                   >
@@ -569,10 +612,12 @@ export default function Home() {
                     />
                   </button>
                 )}
+
                 <div className="p-5">
                   <h3 className="text-base font-semibold text-slate-100">
                     {item.name}
                   </h3>
+
                   <p className="mt-2 text-sm leading-6 text-slate-400">
                     {item.description}
                   </p>
@@ -592,25 +637,28 @@ export default function Home() {
 
         <section id="about" className="scroll-mt-24 space-y-7">
           <SectionHeader eyebrow="Working style">About</SectionHeader>
+
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.6fr)_minmax(260px,0.7fr)]">
             <div className="space-y-5 text-base leading-8 text-slate-400">
               <p>
-                I am a full-stack web developer specializing in custom web applications,
-                backend APIs, internal tools, database integrations, and automated data
-                workflows.
+                I am a full-stack web developer specializing in custom web
+                applications, backend APIs, internal tools, database
+                integrations, and automated data workflows.
               </p>
+
               <p>
-                I work primarily with Python, PHP, JavaScript, Django, Laravel, Next.js,
-                PostgreSQL, MongoDB, and MySQL. My experience includes developing role-based
-                business applications, designing database structures, integrating third-party
-                services, troubleshooting application failures, and improving workflow
-                reliability through validation, batching, retries, logging, and idempotent
-                operations.
+                I work primarily with Python, PHP, JavaScript, Django, Laravel,
+                Next.js, PostgreSQL, MongoDB, and MySQL. My experience includes
+                developing role-based business applications, designing database
+                structures, integrating third-party services, troubleshooting
+                application failures, and improving workflow reliability through
+                validation, batching, retries, logging, and idempotent operations.
               </p>
+
               <p>
-                I also have supporting experience in UI/UX and graphic design, allowing me to
-                work effectively across system functionality, interface clarity, and technical
-                documentation.
+                I also have supporting experience in UI/UX and graphic design,
+                allowing me to work effectively across system functionality,
+                interface clarity, and technical documentation.
               </p>
             </div>
 
@@ -618,6 +666,7 @@ export default function Home() {
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-300">
                 Best fit projects
               </p>
+
               <ul className="mt-5 space-y-3 text-sm leading-6 text-slate-300">
                 {[
                   "Custom business applications",
@@ -640,17 +689,23 @@ export default function Home() {
           id="contact"
           className="scroll-mt-24 space-y-7 rounded-3xl border border-slate-800 bg-slate-900/55 p-6 sm:p-10"
         >
-          <SectionHeader eyebrow="Start a conversation">Contact</SectionHeader>
+          <SectionHeader eyebrow="Start a conversation">
+            Contact
+          </SectionHeader>
+
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl space-y-3">
               <p className="text-xl font-semibold text-slate-100 sm:text-2xl">
-                Have a web application, API, internal tool, or automation project in mind?
+                Have a web application, API, internal tool, or automation project
+                in mind?
               </p>
+
               <p className="text-base leading-7 text-slate-400">
-                Send a short description of the problem, preferred timeline, and budget range.
-                I will respond with the next practical steps.
+                Send a short description of the problem, preferred timeline, and
+                budget range. I will respond with the next practical steps.
               </p>
             </div>
+
             <a
               href={emailHref}
               className="inline-flex shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition hover:-translate-y-0.5 hover:shadow-indigo-500/40"
@@ -689,7 +744,7 @@ export default function Home() {
                 key={item.label}
                 href={item.href}
                 target={item.external ? "_blank" : undefined}
-                rel={item.external ? "noreferrer" : undefined}
+                rel={item.external ? "noopener noreferrer" : undefined}
                 className="group flex min-w-0 items-center gap-3 rounded-xl border border-slate-800 bg-slate-950/50 px-4 py-3 transition hover:border-indigo-500/40 hover:bg-slate-950"
               >
                 <span
@@ -697,8 +752,10 @@ export default function Home() {
                 >
                   {item.badge}
                 </span>
+
                 <div className="min-w-0">
                   <p className="text-xs text-slate-500">{item.label}</p>
+
                   <p className="truncate text-sm font-medium text-slate-200 transition-colors group-hover:text-indigo-300">
                     {item.display}
                   </p>
@@ -710,7 +767,8 @@ export default function Home() {
 
         <footer className="border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
           <p>
-            © {new Date().getFullYear()} Elbern S. Berdera. All rights reserved.
+            © {new Date().getFullYear()} El Bern S. Berdera. All rights
+            reserved.
           </p>
         </footer>
       </main>
