@@ -386,7 +386,7 @@ export default function Home() {
 
         {/* Footer */}
         <footer className="border-t border-slate-800 pt-6 text-center text-xs text-slate-600">
-          © 2025 El Bern S. Berdera
+          <p>© {new Date().getFullYear()} Elbern S. Berdera</p>
         </footer>
       </main>
     </div>
