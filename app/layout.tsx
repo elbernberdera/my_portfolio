@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://elbernberdera-portfolio.vercel.app"),
   title: {
-    default: "Elbern S. Berdera | Full-Stack Web Developer",
+    default: "El Bern S. Berdera | Full-Stack Web Developer",
     template: "%s | Elbern S. Berdera",
   },
   description:
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "/",
-    title: "Elbern S. Berdera | Full-Stack Web Developer",
+    title: "El Bern S. Berdera | Full-Stack Web Developer",
     description:
       "Custom web applications, internal tools, backend APIs, database integrations, and automated data workflows for startups and remote teams.",
     siteName: "Elbern S. Berdera Portfolio",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Elbern S. Berdera | Full-Stack Web Developer",
+    title: "El Bern S. Berdera | Full-Stack Web Developer",
     description:
       "Custom web applications, internal tools, backend APIs, database integrations, and automated data workflows.",
   },
