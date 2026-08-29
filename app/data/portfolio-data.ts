@@ -52,6 +52,14 @@ export const techColors: Record<string, string> = {
   Java: "bg-amber-500/15 text-amber-300 border-amber-500/30",
   ESP32: "bg-teal-500/15 text-teal-300 border-teal-500/30",
   Automation: "bg-slate-500/15 text-slate-300 border-slate-500/30",
+  React: "bg-cyan-500/15 text-cyan-300 border-cyan-500/30",
+  "Tailwind CSS": "bg-teal-500/15 text-teal-300 border-teal-500/30",
+  "REST APIs": "bg-indigo-500/15 text-indigo-300 border-indigo-500/30",
+  "Next.js": "bg-sky-500/15 text-sky-300 border-sky-500/30",
+  TypeScript: "bg-blue-500/15 text-blue-300 border-blue-500/30",
+  "AI / LLMs": "bg-amber-500/15 text-amber-300 border-amber-500/30",
+  NLP: "bg-purple-500/15 text-purple-300 border-purple-500/30",
+  "Computer Vision": "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
 };
 
 export const projects: Project[] = [
@@ -108,17 +116,64 @@ export const projects: Project[] = [
     ],
   },
   {
-    name: "Agila Autosupply Inventory System",
+    name: "Agila Autosupply Inventory & POS System",
     description:
-      "A Django-based inventory system for an auto supply business, designed to manage items, track stock movement, and support faster day-to-day inventory operations.",
-    status: "Under development",
-    link: null,
-    tech: ["Django", "MySQL"],
-    images: ["/images/agila1.png", "/images/agila2.png"],
+      "A full-featured Point of Sale (POS) and inventory management web application for an automotive supply business to streamline sales transactions, monitor stock levels in real time, and manage product inventory efficiently.",
+    status: "Live Demo",
+    link: "https://agila-autosupply-pos.vercel.app/",
+    tech: ["React", "Django", "MySQL", "Tailwind CSS", "REST APIs"],
+    images: [
+      "/images/agila_img1.png",
+      "/images/agila_img2.png",
+      "/images/agila_img3.png",
+      "/images/agila_img4.png",
+    ],
     highlights: [
-      "Inventory item management and monitoring",
-      "Tracks stock availability for daily operations",
-      "Built for a real business workflow",
+      "Point of Sale (POS) interface for fast checkout and sales tracking",
+      "Real-time stock movement, inventory monitoring, and product catalog",
+      "Interactive dashboard with category management and order workflows",
+      "Deployed live on Vercel with a responsive, modern web interface",
+    ],
+  },
+  {
+    name: "Luxe Fragrance E-Commerce Sales Funnel",
+    description:
+      "A high-converting direct-to-consumer e-commerce sales funnel and checkout web application designed for authentic fragrance retail, featuring interactive scent selection, direct WhatsApp/Messenger ordering, and Cash-on-Delivery workflows.",
+    status: "Live Demo",
+    link: "https://fragrance-funnel.vercel.app/",
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "REST APIs"],
+    images: [
+      "/images/fragrance.png",
+      "/images/fragrance1.jpg",
+      "/images/fragrance2.jpg",
+      "/images/fragrance3.jpg",
+    ],
+    highlights: [
+      "Interactive scent pyramid & note explorer with instant fragrance previews",
+      "One-click Cash-on-Delivery checkout flow with order form validation",
+      "Direct WhatsApp and Facebook Messenger social checkout integration",
+      "High-conversion mobile-first design with customer reviews and flash promo timers",
+    ],
+  },
+  {
+    name: "AI Business Suite — Intelligent Tools Platform",
+    description:
+      "An all-in-one multi-model AI productivity suite featuring conversational AI (BernAI), text humanization with custom tone tuning, computer vision image classification, and NLP text sentiment/topic classification.",
+    status: "Live Demo",
+    link: "https://ai-suite-omega.vercel.app/",
+    tech: ["AI / LLMs", "NLP", "Computer Vision", "JavaScript", "REST APIs"],
+    images: [
+      "/images/ai_suite1.png",
+      "/images/ai_suite2.png",
+      "/images/ai_suite3.png",
+      "/images/ai_suite4.png",
+
+    ],
+    highlights: [
+      "BernAI conversational AI assistant with contextual memory and Q&A modes",
+      "AI Text Humanizer with tone control, synonym swaps, and real-time human score",
+      "Vision AI image classification with confidence percentage predictions",
+      "NLP text classification for sentiment analysis, intent, and document moderation",
     ],
   },
 ];

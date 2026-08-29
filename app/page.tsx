@@ -14,7 +14,7 @@ import ImageModal from "./components/ImageModal";
 const LINKEDIN_URL = "https://www.linkedin.com/in/elbern-berdera/";
 const GITHUB_URL = "https://github.com/elbernberdera";
 const RESUME_URL =
-  "/resume/El_Bern_Berdera_Full_Stack_Developer_Resume.pdf";
+  "/resume/Berdera_elbern_resume.pdf";
 
 const navItems = [
   { id: "services", label: "Services" },
@@ -293,14 +293,15 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="mx-auto h-52 w-52 overflow-hidden rounded-3xl border border-indigo-400/30 bg-slate-900 shadow-xl shadow-indigo-950/40 ring-1 ring-white/5 sm:h-60 sm:w-60 lg:mx-0">
+            <div className="relative mx-auto aspect-square w-48 overflow-hidden rounded-3xl border border-indigo-400/30 bg-slate-900 shadow-xl shadow-indigo-950/40 ring-1 ring-white/5 sm:w-56 lg:mx-0 lg:w-64">
               <Image
-                src="/images/profile.jpg"
+                src="/images/profile2.jpg"
                 alt="Professional portrait of El Bern S. Berdera"
-                width={480}
-                height={480}
+                width={512}
+                height={512}
                 priority
-                className="h-full w-full object-cover"
+                sizes="(max-width: 640px) 192px, (max-width: 1024px) 224px, 256px"
+                className="h-full w-full object-cover object-top transition-transform duration-300 hover:scale-105"
               />
             </div>
           </div>
@@ -401,7 +402,14 @@ export default function Home() {
                       </h3>
 
                       {project.status && (
-                        <span className="rounded-full border border-amber-500/30 bg-amber-500/15 px-2.5 py-1 text-[11px] font-semibold text-amber-300">
+                        <span
+                          className={`rounded-full border px-2.5 py-1 text-[11px] font-semibold ${
+                            project.status.toLowerCase().includes("live") ||
+                            project.status.toLowerCase().includes("deployed")
+                              ? "border-emerald-500/30 bg-emerald-500/15 text-emerald-300"
+                              : "border-amber-500/30 bg-amber-500/15 text-amber-300"
+                          }`}
+                        >
                           {project.status}
                         </span>
                       )}
@@ -445,7 +453,9 @@ export default function Home() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      View repository
+                      {project.link.includes("github.com")
+                        ? "View repository"
+                        : "Live Demo"}
                       <ExternalLinkIcon />
                     </a>
                   ) : (
