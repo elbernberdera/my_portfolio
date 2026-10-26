@@ -5,10 +5,13 @@ import { useState, type FormEvent, type ReactNode } from "react";
 
 const OWNER_EMAIL = "elbernberdera@gmail.com";
 
-// Set this to a Formspree form URL (https://formspree.io/f/xxxxxxx) to receive
-// submissions by email without the visitor's email app. Without it, the form
-// falls back to opening a pre-filled email to OWNER_EMAIL.
-const ENDPOINT = process.env.NEXT_PUBLIC_TESTIMONIAL_ENDPOINT;
+// Submissions go straight to OWNER_EMAIL through FormSubmit (no account needed).
+// The very first submission makes FormSubmit email an "Activate form" link to
+// OWNER_EMAIL; nothing is delivered until that link is clicked once.
+// NEXT_PUBLIC_TESTIMONIAL_ENDPOINT can override this (e.g. a Formspree URL).
+const ENDPOINT =
+  process.env.NEXT_PUBLIC_TESTIMONIAL_ENDPOINT ||
+  `https://formsubmit.co/ajax/${OWNER_EMAIL}`;
 
 const QUOTE_MIN = 30;
 const QUOTE_MAX = 600;
@@ -18,8 +21,8 @@ const relationships = ["Client", "Supervisor / Manager", "Colleague", "Other"];
 type Status =
   | { state: "idle" }
   | { state: "sending" }
-  | { state: "sent"; via: "endpoint" | "email"; name: string }
-  | { state: "error"; message: string };
+  | { state: "sent"; name: string }
+  | { state: "error"; mailtoHref: string };
 
 const inputClass =
   "w-full rounded-xl border border-slate-700 bg-slate-950/60 px-4 py-2.5 text-sm text-slate-100 placeholder:text-slate-600 transition focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/30";
@@ -57,11 +60,36 @@ export default function TestimonialForm() {
 
     // Honeypot: real people never see or fill this field
     if (data.get("_gotcha")) return;
+    data.delete("_gotcha");
 
     const name = String(data.get("name") ?? "").trim();
     const firstName = name.split(/\s+/)[0] || "there";
+    const subject = `Portfolio testimonial from ${name}`;
 
-    if (!ENDPOINT) {
+    setStatus({ state: "sending" });
+    data.set("_subject", subject);
+    data.set("_template", "table");
+    data.set("_captcha", "false");
+
+    try {
+      const response = await fetch(ENDPOINT, {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+      const result = await response.json().catch(() => ({}));
+      // FormSubmit answers 200 with success "false" when it did not deliver
+      // (e.g. before activation), so check its flag as well as the status code.
+      if (!response.ok || String(result.success ?? "true") !== "true") {
+        throw new Error(
+          result.message ?? `Request failed (${response.status})`,
+        );
+      }
+      form.reset();
+      setQuoteLength(0);
+      setStatus({ state: "sent", name: firstName });
+    } catch {
+      // Fallback: let the visitor send the same content from their own email app
       const lines = [
         `Name: ${name}`,
         `Email: ${data.get("email")}`,
@@ -75,31 +103,12 @@ export default function TestimonialForm() {
         "",
         "Permission to publish name, role and testimonial: yes",
       ];
-      window.location.href =
-        `mailto:${OWNER_EMAIL}` +
-        `?subject=${encodeURIComponent(`Portfolio testimonial from ${name}`)}` +
-        `&body=${encodeURIComponent(lines.join("\n"))}`;
-      setStatus({ state: "sent", via: "email", name: firstName });
-      return;
-    }
-
-    setStatus({ state: "sending" });
-    data.set("_subject", `Portfolio testimonial from ${name}`);
-
-    try {
-      const response = await fetch(ENDPOINT, {
-        method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
-      });
-      if (!response.ok) throw new Error(`Request failed (${response.status})`);
-      form.reset();
-      setQuoteLength(0);
-      setStatus({ state: "sent", via: "endpoint", name: firstName });
-    } catch {
       setStatus({
         state: "error",
-        message: `Something went wrong while sending. Please try again, or email it to ${OWNER_EMAIL}.`,
+        mailtoHref:
+          `mailto:${OWNER_EMAIL}` +
+          `?subject=${encodeURIComponent(subject)}` +
+          `&body=${encodeURIComponent(lines.join("\n"))}`,
       });
     }
   };
@@ -113,25 +122,10 @@ export default function TestimonialForm() {
         <h2 className="text-xl font-semibold text-slate-100">
           Thank you, {status.name}!
         </h2>
-        {status.via === "endpoint" ? (
-          <p className="text-sm leading-7 text-slate-300">
-            Your testimonial was sent. El Bern reviews every submission before
-            it appears on the portfolio.
-          </p>
-        ) : (
-          <p className="text-sm leading-7 text-slate-300">
-            Your email app should now be open with your testimonial filled in.
-            Please press <strong>Send</strong> to deliver it. If nothing opened,
-            you can email it to{" "}
-            <a
-              href={`mailto:${OWNER_EMAIL}`}
-              className="text-indigo-300 underline"
-            >
-              {OWNER_EMAIL}
-            </a>
-            .
-          </p>
-        )}
+        <p className="text-sm leading-7 text-slate-300">
+          Your testimonial was sent. El Bern reviews every submission before it
+          appears on the portfolio.
+        </p>
         <Link
           href="/"
           className="inline-flex rounded-full border border-slate-700 px-5 py-2 text-sm font-semibold text-slate-200 transition hover:border-indigo-500/60 hover:text-indigo-200"
@@ -249,7 +243,12 @@ export default function TestimonialForm() {
           role="alert"
           className="rounded-xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-200"
         >
-          {status.message}
+          The testimonial could not be sent right now. Please try again in a
+          moment, or{" "}
+          <a href={status.mailtoHref} className="font-semibold underline">
+            send it from your email app
+          </a>{" "}
+          instead.
         </p>
       )}
 
