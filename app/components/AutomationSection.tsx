@@ -1,6 +1,7 @@
 "use client";
 
-import { Fragment, useEffect, useState, useSyncExternalStore } from "react";
+import { Fragment, useEffect, useState } from "react";
+import useReducedMotion from "../hooks/useReducedMotion";
 
 const steps = [
   {
@@ -88,14 +89,6 @@ const toolkit = [
 
 const STEP_MS = 1400;
 
-const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
-
-const subscribeReducedMotion = (onChange: () => void) => {
-  const query = window.matchMedia(REDUCED_MOTION);
-  query.addEventListener("change", onChange);
-  return () => query.removeEventListener("change", onChange);
-};
-
 function StepIcon({ path }: { path: string }) {
   return (
     <svg
@@ -113,12 +106,12 @@ function StepIcon({ path }: { path: string }) {
   );
 }
 
-export default function AutomationSection({ contactHref }: { contactHref: string }) {
-  const reducedMotion = useSyncExternalStore(
-    subscribeReducedMotion,
-    () => window.matchMedia(REDUCED_MOTION).matches,
-    () => false,
-  );
+export default function AutomationSection({
+  contactHref,
+}: {
+  contactHref: string;
+}) {
+  const reducedMotion = useReducedMotion();
   const [step, setStep] = useState(0);
   // -1 means "show every step at once"
   const active = reducedMotion ? -1 : step;
@@ -134,7 +127,8 @@ export default function AutomationSection({ contactHref }: { contactHref: string
     return () => window.clearInterval(id);
   }, [reducedMotion]);
 
-  const shownUpTo = active === -1 ? steps.length - 1 : Math.min(active, steps.length - 1);
+  const shownUpTo =
+    active === -1 ? steps.length - 1 : Math.min(active, steps.length - 1);
   const isDone = (index: number) => active === -1 || index <= shownUpTo;
 
   return (
@@ -223,7 +217,9 @@ export default function AutomationSection({ contactHref }: { contactHref: string
                   key={step.label}
                   className="animate-[log-in_0.35s_ease-out] whitespace-pre-wrap break-words text-slate-300"
                 >
-                  <span className="text-slate-600">{String(index + 1).padStart(2, "0")} </span>
+                  <span className="text-slate-600">
+                    {String(index + 1).padStart(2, "0")}{" "}
+                  </span>
                   {step.log}
                 </p>
               ) : null,
@@ -247,10 +243,16 @@ export default function AutomationSection({ contactHref }: { contactHref: string
               key={item.title}
               className="flex gap-4 rounded-2xl border border-slate-800 bg-slate-900/60 p-4 transition hover:-translate-y-0.5 hover:border-cyan-500/30 hover:bg-slate-900"
             >
-              <span className={`mt-2 h-2 w-2 shrink-0 rounded-full ${item.accent}`} />
+              <span
+                className={`mt-2 h-2 w-2 shrink-0 rounded-full ${item.accent}`}
+              />
               <div>
-                <h3 className="text-sm font-semibold text-slate-100">{item.title}</h3>
-                <p className="mt-1 text-sm leading-6 text-slate-400">{item.description}</p>
+                <h3 className="text-sm font-semibold text-slate-100">
+                  {item.title}
+                </h3>
+                <p className="mt-1 text-sm leading-6 text-slate-400">
+                  {item.description}
+                </p>
               </div>
             </article>
           ))}
