@@ -212,3 +212,23 @@ export const graphics: Graphic[] = [
     images: ["/images/polo2.jpg", "/images/polo1.jpg"],
   },
 ];
+
+export type Testimonial = {
+  quote: string;
+  name: string;
+  role: string;
+  company?: string;
+  relationship?: string;
+};
+
+// Approved testimonials only. Submissions from /testimonial arrive by email first;
+// copy the ones you approve here and the Testimonials section appears automatically.
+// Example:
+// {
+//   quote: "The exact words they sent, lightly trimmed if needed.",
+//   name: "Full Name",
+//   role: "Job Title",
+//   company: "Company (optional)",
+//   relationship: "Client",
+// },
+export const testimonials: Testimonial[] = [];

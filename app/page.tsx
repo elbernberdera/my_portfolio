@@ -8,6 +8,7 @@ import {
   techColors,
   projects,
   graphics,
+  testimonials,
   type ProjectCategory,
 } from "./data/portfolio-data";
 import ImageModal from "./components/ImageModal";
@@ -17,6 +18,7 @@ import TypingRoles from "./components/TypingRoles";
 import CountUp from "./components/CountUp";
 import ScrollProgress from "./components/ScrollProgress";
 import TiltCard from "./components/TiltCard";
+import TestimonialsSection from "./components/TestimonialsSection";
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/elbern-berdera/";
 const GITHUB_URL = "https://github.com/elbernberdera";
@@ -27,6 +29,10 @@ const navItems = [
   { id: "projects", label: "Projects" },
   { id: "automation", label: "Automation" },
   { id: "experience", label: "Experience" },
+  // Only link to Testimonials once there is at least one approved quote
+  ...(testimonials.length > 0
+    ? [{ id: "testimonials", label: "Testimonials" }]
+    : []),
   { id: "design-work", label: "Design" },
   { id: "about", label: "About" },
   { id: "contact", label: "Contact" },
@@ -783,6 +789,18 @@ export default function Home() {
             </div>
           </section>
         </Reveal>
+
+        {testimonials.length > 0 && (
+          <section id="testimonials" className="scroll-mt-24 space-y-7">
+            <Reveal>
+              <SectionHeader eyebrow="In their words">
+                Testimonials
+              </SectionHeader>
+            </Reveal>
+
+            <TestimonialsSection testimonials={testimonials} />
+          </section>
+        )}
 
         <Reveal>
           <section id="design-work" className="scroll-mt-24 space-y-7">
