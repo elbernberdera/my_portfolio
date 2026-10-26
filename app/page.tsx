@@ -1,15 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { useState, type ReactNode } from "react";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
 import {
   skills,
   skillColors,
   techColors,
   projects,
   graphics,
+  type ProjectCategory,
 } from "./data/portfolio-data";
 import ImageModal from "./components/ImageModal";
+import Reveal from "./components/Reveal";
+import AutomationSection from "./components/AutomationSection";
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/elbern-berdera/";
 const GITHUB_URL = "https://github.com/elbernberdera";
@@ -19,8 +22,9 @@ const RESUME_URL =
 const navItems = [
   { id: "services", label: "Services" },
   { id: "projects", label: "Projects" },
+  { id: "automation", label: "Automation" },
   { id: "experience", label: "Experience" },
-  { id: "design-work", label: "Design Work" },
+  { id: "design-work", label: "Design" },
   { id: "about", label: "About" },
   { id: "contact", label: "Contact" },
 ];
@@ -103,6 +107,32 @@ const experience = [
   },
 ];
 
+const projectFilters: { id: "all" | ProjectCategory; label: string }[] = [
+  { id: "all", label: "All" },
+  { id: "web", label: "Web Apps" },
+  { id: "automation", label: "Automation" },
+  { id: "ai", label: "AI" },
+];
+
+const isLive = (status?: string) =>
+  !!status &&
+  (status.toLowerCase().includes("live") ||
+    status.toLowerCase().includes("deployed"));
+
+// Live demos first; otherwise keep the order from the data file
+const orderedProjects = [...projects].sort(
+  (a, b) => Number(isLive(b.status)) - Number(isLive(a.status)),
+);
+
+const liveCount = projects.filter((project) => isLive(project.status)).length;
+
+const heroStats = [
+  // +1 for the data-pipeline case study shown alongside the data-file projects
+  { value: `${projects.length + 1}`, label: "Projects built" },
+  { value: `${liveCount}`, label: "Live demos" },
+  { value: "GMT+8", label: "Remote-ready" },
+];
+
 const getTechColor = (tech: string) =>
   techColors[tech] ??
   "bg-indigo-500/20 text-indigo-300 border-indigo-500/30";
@@ -156,6 +186,53 @@ export default function Home() {
     name: string;
     images: string[];
   } | null>(null);
+  const [filter, setFilter] = useState<"all" | ProjectCategory>("all");
+  const [activeSection, setActiveSection] = useState("");
+  const [showTop, setShowTop] = useState(false);
+
+  const closeModal = useCallback(() => setActiveGraphic(null), []);
+
+  // Highlight the nav link for whichever section is in the middle of the viewport
+  useEffect(() => {
+    const sections = navItems
+      .map((item) => document.getElementById(item.id))
+      .filter((node): node is HTMLElement => node !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    const onScroll = () => setShowTop(window.scrollY > 700);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
+  const visibleProjects =
+    filter === "all"
+      ? orderedProjects
+      : orderedProjects.filter((project) => project.category === filter);
+  const showPipelineCaseStudy = filter === "all" || filter === "automation";
+
+  const automationHref =
+    "mailto:elbernberdera@gmail.com" +
+    "?subject=" +
+    encodeURIComponent("Automation Project Inquiry") +
+    "&body=" +
+    encodeURIComponent(
+      "Hi El Bern,\n\nI have a workflow I'd like to automate.\n\n- What happens today (manual steps):\n- Systems / data sources involved:\n- How often it runs:\n- Timeline:\n\nBest,\n",
+    );
 
   const emailHref =
     "mailto:elbernberdera@gmail.com" +
@@ -180,12 +257,17 @@ export default function Home() {
             El Bern S. Berdera
           </a>
 
-          <div className="flex min-w-0 items-center gap-4 overflow-x-auto whitespace-nowrap pb-1 text-sm font-medium text-slate-400 sm:gap-6 sm:pb-0">
+          <div className="flex min-w-0 items-center gap-4 overflow-x-auto whitespace-nowrap py-1.5 text-sm font-medium text-slate-400 [scrollbar-width:none] sm:gap-6 [&::-webkit-scrollbar]:hidden">
             {navItems.map((item) => (
               <a
                 key={item.id}
                 href={`#${item.id}`}
-                className="transition-colors hover:text-indigo-300"
+                aria-current={activeSection === item.id ? "true" : undefined}
+                className={`relative transition-colors hover:text-indigo-300 ${
+                  activeSection === item.id
+                    ? "text-indigo-300 after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-full after:rounded-full after:bg-gradient-to-r after:from-indigo-400 after:to-cyan-400"
+                    : ""
+                }`}
               >
                 {item.label}
               </a>
@@ -215,7 +297,7 @@ export default function Home() {
           <div className="pointer-events-none absolute -left-20 -top-24 h-96 w-96 rounded-full bg-indigo-600/15 blur-3xl" />
           <div className="pointer-events-none absolute right-10 top-0 h-72 w-72 rounded-full bg-cyan-600/10 blur-3xl" />
 
-          <div className="relative grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_260px]">
+          <div className="relative grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_300px]">
             <div className="space-y-6">
               <span className="inline-flex rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-300 sm:text-sm">
                 Available for remote contract projects
@@ -291,22 +373,50 @@ export default function Home() {
                 <span aria-hidden="true">·</span>
                 <span>Butuan City, Philippines</span>
               </div>
+
+              <dl className="grid max-w-md grid-cols-3 gap-3 pt-2">
+                {heroStats.map((stat) => (
+                  <div
+                    key={stat.label}
+                    className="rounded-2xl border border-slate-800 bg-slate-950/50 px-3 py-3 text-center"
+                  >
+                    <dt className="sr-only">{stat.label}</dt>
+                    <dd className="bg-gradient-to-r from-indigo-300 to-cyan-300 bg-clip-text text-xl font-bold text-transparent sm:text-2xl">
+                      {stat.value}
+                    </dd>
+                    <dd
+                      aria-hidden="true"
+                      className="mt-0.5 text-[11px] font-medium uppercase tracking-wider text-slate-500"
+                    >
+                      {stat.label}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
             </div>
 
-            <div className="relative mx-auto aspect-square w-48 overflow-hidden rounded-3xl border border-indigo-400/30 bg-slate-900 shadow-xl shadow-indigo-950/40 ring-1 ring-white/5 sm:w-56 lg:mx-0 lg:w-64">
-              <Image
-                src="/images/profile2.jpg"
-                alt="Professional portrait of El Bern S. Berdera"
-                width={512}
-                height={512}
-                priority
-                sizes="(max-width: 640px) 192px, (max-width: 1024px) 224px, 256px"
-                className="h-full w-full object-cover object-top transition-transform duration-300 hover:scale-105"
-              />
+            <div className="relative mx-auto w-56 animate-[float-soft_7s_ease-in-out_infinite] sm:w-64 lg:mx-0 lg:w-[300px]">
+              <div className="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-indigo-500/40 via-purple-500/20 to-cyan-500/40 blur-2xl" />
+
+              <div className="relative rounded-[1.75rem] bg-gradient-to-br from-indigo-400/70 via-purple-400/40 to-cyan-400/70 p-[2px] shadow-2xl shadow-indigo-950/60">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-[1.65rem] bg-slate-100">
+                  {/* profile3.png is 1086×1448; request a high quality, retina-sized render so it stays sharp */}
+                  <Image
+                    src="/images/profile3.png"
+                    alt="Professional portrait of El Bern S. Berdera"
+                    fill
+                    priority
+                    quality={95}
+                    sizes="(max-width: 640px) 256px, 320px"
+                    className="object-cover object-[50%_12%]"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
+        <Reveal>
         <section id="skills" className="scroll-mt-24 space-y-7">
           <SectionHeader eyebrow="Technical foundation">
             Core Skills
@@ -331,7 +441,9 @@ export default function Home() {
             ))}
           </div>
         </section>
+        </Reveal>
 
+        <Reveal>
         <section id="services" className="scroll-mt-24 space-y-7">
           <SectionHeader eyebrow="How I help">Services</SectionHeader>
 
@@ -356,6 +468,7 @@ export default function Home() {
             ))}
           </div>
         </section>
+        </Reveal>
 
         <section id="projects" className="scroll-mt-24 space-y-7">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
@@ -366,11 +479,43 @@ export default function Home() {
             </p>
           </div>
 
+          <div
+            role="tablist"
+            aria-label="Filter projects"
+            className="flex flex-wrap gap-2"
+          >
+            {projectFilters.map((option) => {
+              const count =
+                option.id === "all"
+                  ? projects.length + 1
+                  : projects.filter((p) => p.category === option.id).length +
+                    (option.id === "automation" ? 1 : 0);
+              const selected = filter === option.id;
+              return (
+                <button
+                  key={option.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={selected}
+                  onClick={() => setFilter(option.id)}
+                  className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${
+                    selected
+                      ? "border-indigo-400/60 bg-indigo-500/15 text-indigo-200"
+                      : "border-slate-800 bg-slate-900/50 text-slate-400 hover:border-slate-600 hover:text-slate-200"
+                  }`}
+                >
+                  {option.label}
+                  <span className="ml-1.5 text-xs text-slate-500">{count}</span>
+                </button>
+              );
+            })}
+          </div>
+
           <div className="grid gap-6 lg:grid-cols-2">
-            {projects.map((project) => (
+            {visibleProjects.map((project) => (
               <article
                 key={project.name}
-                className="flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/60 transition hover:-translate-y-1 hover:border-indigo-500/35"
+                className="flex animate-[log-in_0.4s_ease-out] flex-col justify-between overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/60 transition hover:-translate-y-1 hover:border-indigo-500/35"
               >
                 <div>
                   {project.images?.length > 0 && (
@@ -404,8 +549,7 @@ export default function Home() {
                       {project.status && (
                         <span
                           className={`rounded-full border px-2.5 py-1 text-[11px] font-semibold ${
-                            project.status.toLowerCase().includes("live") ||
-                            project.status.toLowerCase().includes("deployed")
+                            isLive(project.status)
                               ? "border-emerald-500/30 bg-emerald-500/15 text-emerald-300"
                               : "border-amber-500/30 bg-amber-500/15 text-amber-300"
                           }`}
@@ -469,79 +613,101 @@ export default function Home() {
               </article>
             ))}
 
-            <article className="flex flex-col justify-between overflow-hidden rounded-2xl border border-cyan-500/25 bg-gradient-to-br from-slate-900 via-slate-900 to-cyan-950/30 transition hover:-translate-y-1 hover:border-cyan-400/40">
-              <div className="relative flex h-52 items-center justify-center overflow-hidden border-b border-slate-800/80 bg-slate-950/70 p-8">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.12),transparent_65%)]" />
+            {showPipelineCaseStudy && (
+              <article className="flex animate-[log-in_0.4s_ease-out] flex-col justify-between overflow-hidden rounded-2xl border border-cyan-500/25 bg-gradient-to-br from-slate-900 via-slate-900 to-cyan-950/30 transition hover:-translate-y-1 hover:border-cyan-400/40">
+                <div className="relative flex h-52 items-center justify-center overflow-hidden border-b border-slate-800/80 bg-slate-950/70 p-8">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.12),transparent_65%)]" />
 
-                <div className="relative grid w-full max-w-md grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-3 text-center text-xs font-semibold text-slate-300">
-                  <span className="rounded-lg border border-indigo-500/30 bg-indigo-500/10 px-3 py-4">
-                    Extract
-                  </span>
-                  <span className="text-cyan-400">→</span>
-                  <span className="rounded-lg border border-cyan-500/30 bg-cyan-500/10 px-3 py-4">
-                    Validate
-                  </span>
-                  <span className="text-cyan-400">→</span>
-                  <span className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-4">
-                    Sync
-                  </span>
-                </div>
-              </div>
-
-              <div className="space-y-4 p-6">
-                <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="text-lg font-semibold text-slate-100">
-                    Automated Data Extraction & Enrichment Pipeline
-                  </h3>
-
-                  <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-semibold text-cyan-300">
-                    Sanitized case study
-                  </span>
+                  <div className="relative grid w-full max-w-md grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-3 text-center text-xs font-semibold text-slate-300">
+                    <span className="rounded-lg border border-indigo-500/30 bg-indigo-500/10 px-3 py-4">
+                      Extract
+                    </span>
+                    <span className="text-cyan-400">→</span>
+                    <span className="rounded-lg border border-cyan-500/30 bg-cyan-500/10 px-3 py-4">
+                      Validate
+                    </span>
+                    <span className="text-cyan-400">→</span>
+                    <span className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-4">
+                      Sync
+                    </span>
+                  </div>
                 </div>
 
-                <p className="text-sm leading-7 text-slate-400">
-                  A resilient workflow for collecting source records, extracting
-                  structured information, validating outputs, processing batches,
-                  retrying transient failures, and synchronizing results across
-                  relational and document databases.
-                </p>
+                <div className="space-y-4 p-6">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="text-lg font-semibold text-slate-100">
+                      Automated Data Extraction & Enrichment Pipeline
+                    </h3>
 
-                <ul className="space-y-2 text-sm text-slate-400">
+                    <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-semibold text-cyan-300">
+                      Sanitized case study
+                    </span>
+                  </div>
+
+                  <p className="text-sm leading-7 text-slate-400">
+                    A resilient workflow for collecting source records, extracting
+                    structured information, validating outputs, processing batches,
+                    retrying transient failures, and synchronizing results across
+                    relational and document databases.
+                  </p>
+
+                  <ul className="space-y-2 text-sm text-slate-400">
+                    {[
+                      "Schema validation and post-run verification",
+                      "Micro-batch processing with exponential backoff",
+                      "Idempotent upserts and structured error logging",
+                    ].map((point) => (
+                      <li key={point} className="flex gap-3">
+                        <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-cyan-400" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="flex flex-wrap gap-1.5 border-t border-slate-800/80 px-6 py-5">
                   {[
-                    "Schema validation and post-run verification",
-                    "Micro-batch processing with exponential backoff",
-                    "Idempotent upserts and structured error logging",
-                  ].map((point) => (
-                    <li key={point} className="flex gap-3">
-                      <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-cyan-400" />
-                      <span>{point}</span>
-                    </li>
+                    "Python",
+                    "PostgreSQL",
+                    "MongoDB",
+                    "Firecrawl",
+                    "Windmill",
+                  ].map((item) => (
+                    <span
+                      key={item}
+                      className={`rounded-full border px-2.5 py-1 text-[11px] font-medium ${getTechColor(
+                        item,
+                      )}`}
+                    >
+                      {item}
+                    </span>
                   ))}
-                </ul>
-              </div>
-
-              <div className="flex flex-wrap gap-1.5 border-t border-slate-800/80 px-6 py-5">
-                {[
-                  "Python",
-                  "PostgreSQL",
-                  "MongoDB",
-                  "Firecrawl",
-                  "Windmill",
-                ].map((item) => (
-                  <span
-                    key={item}
-                    className={`rounded-full border px-2.5 py-1 text-[11px] font-medium ${getTechColor(
-                      item,
-                    )}`}
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </article>
+                </div>
+              </article>
+            )}
           </div>
         </section>
 
+        <section id="automation" className="scroll-mt-24 space-y-7">
+          <Reveal>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <SectionHeader eyebrow="Work that runs itself">
+                Automation
+              </SectionHeader>
+
+              <p className="max-w-md text-sm leading-6 text-slate-500">
+                I turn repetitive, error-prone manual steps into scheduled,
+                observable workflows that are safe to re-run.
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal delay={100}>
+            <AutomationSection contactHref={automationHref} />
+          </Reveal>
+        </section>
+
+        <Reveal>
         <section id="experience" className="scroll-mt-24 space-y-8">
           <SectionHeader eyebrow="Professional background">
             Experience
@@ -584,7 +750,9 @@ export default function Home() {
             ))}
           </div>
         </section>
+        </Reveal>
 
+        <Reveal>
         <section id="design-work" className="scroll-mt-24 space-y-7">
           <SectionHeader eyebrow="Supporting capability">
             Selected Design Work
@@ -636,15 +804,17 @@ export default function Home() {
             ))}
           </div>
         </section>
+        </Reveal>
 
         {activeGraphic && (
           <ImageModal
             name={activeGraphic.name}
             images={activeGraphic.images}
-            onClose={() => setActiveGraphic(null)}
+            onClose={closeModal}
           />
         )}
 
+        <Reveal>
         <section id="about" className="scroll-mt-24 space-y-7">
           <SectionHeader eyebrow="Working style">About</SectionHeader>
 
@@ -694,7 +864,9 @@ export default function Home() {
             </aside>
           </div>
         </section>
+        </Reveal>
 
+        <Reveal>
         <section
           id="contact"
           className="scroll-mt-24 space-y-7 rounded-3xl border border-slate-800 bg-slate-900/55 p-6 sm:p-10"
@@ -774,6 +946,7 @@ export default function Home() {
             ))}
           </div>
         </section>
+        </Reveal>
 
         <footer className="border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
           <p>
@@ -782,6 +955,29 @@ export default function Home() {
           </p>
         </footer>
       </main>
+
+      <a
+        href="#top"
+        aria-label="Back to top"
+        className={`fixed bottom-6 right-6 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-indigo-400/40 bg-slate-900/90 text-indigo-200 shadow-lg shadow-indigo-950/50 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-300 ${
+          showTop
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none translate-y-3 opacity-0"
+        }`}
+      >
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          className="h-4 w-4"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M12 19V5M5 12l7-7 7 7" />
+        </svg>
+      </a>
     </div>
   );
 }

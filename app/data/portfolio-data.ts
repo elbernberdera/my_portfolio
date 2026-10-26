@@ -1,5 +1,8 @@
+export type ProjectCategory = "web" | "automation" | "ai";
+
 export type Project = {
   name: string;
+  category: ProjectCategory;
   description: string;
   link: string | null;
   tech: string[];
@@ -51,7 +54,12 @@ export const techColors: Record<string, string> = {
   JavaScript: "bg-yellow-500/15 text-yellow-300 border-yellow-500/30",
   Java: "bg-amber-500/15 text-amber-300 border-amber-500/30",
   ESP32: "bg-teal-500/15 text-teal-300 border-teal-500/30",
-  Automation: "bg-slate-500/15 text-slate-300 border-slate-500/30",
+  Automation: "bg-cyan-500/15 text-cyan-300 border-cyan-500/30",
+  Selenium: "bg-lime-500/15 text-lime-300 border-lime-500/30",
+  PostgreSQL: "bg-sky-500/15 text-sky-300 border-sky-500/30",
+  MongoDB: "bg-green-500/15 text-green-300 border-green-500/30",
+  Firecrawl: "bg-orange-500/15 text-orange-300 border-orange-500/30",
+  Windmill: "bg-violet-500/15 text-violet-300 border-violet-500/30",
   React: "bg-cyan-500/15 text-cyan-300 border-cyan-500/30",
   "Tailwind CSS": "bg-teal-500/15 text-teal-300 border-teal-500/30",
   "REST APIs": "bg-indigo-500/15 text-indigo-300 border-indigo-500/30",
@@ -65,6 +73,7 @@ export const techColors: Record<string, string> = {
 export const projects: Project[] = [
   {
     name: "Task Monitoring System",
+    category: "web",
     description:
       "A web-based task monitoring system designed to help teams track work items end‑to‑end — from assignment to completion — with clear status visibility and progress reporting.",
     link: "https://github.com/elbernberdera/Task-Monitoring",
@@ -78,6 +87,7 @@ export const projects: Project[] = [
   },
   {
     name: "Smart Home Monitoring System",
+    category: "automation",
     description:
       "A Django + ESP32 smart home web app that lets you monitor and control connected appliances, lighting, and security features remotely with a simple, user-friendly interface.",
     link: "https://github.com/elbernberdera/Smart_home_monitoring",
@@ -91,6 +101,7 @@ export const projects: Project[] = [
   },
   {
     name: "DICT Job Portal",
+    category: "web",
     description:
       "A full-featured Laravel job portal that manages job listings, employer accounts, and applicant submissions — built to support recruitment workflows with a clean and accessible UI.",
     link: "https://github.com/elbernberdera/Job-Portal",
@@ -104,10 +115,11 @@ export const projects: Project[] = [
   },
   {
     name: "Network Automation Script",
+    category: "automation",
     description:
       "A Python automation tool that speeds up repetitive modem configuration tasks by standardizing steps and reducing manual setup time.",
     link: "https://github.com/elbernberdera/script",
-    tech: ["Python", "Automation"],
+    tech: ["Python", "Selenium", "Automation"],
     images: ["/images/network_automation.png"],
     highlights: [
       "Automates repetitive configuration steps",
@@ -117,6 +129,7 @@ export const projects: Project[] = [
   },
   {
     name: "Agila Autosupply Inventory & POS System",
+    category: "web",
     description:
       "A full-featured Point of Sale (POS) and inventory management web application for an automotive supply business to streamline sales transactions, monitor stock levels in real time, and manage product inventory efficiently.",
     status: "Live Demo",
@@ -137,6 +150,7 @@ export const projects: Project[] = [
   },
   {
     name: "Luxe Fragrance E-Commerce Sales Funnel",
+    category: "web",
     description:
       "A high-converting direct-to-consumer e-commerce sales funnel and checkout web application designed for authentic fragrance retail, featuring interactive scent selection, direct WhatsApp/Messenger ordering, and Cash-on-Delivery workflows.",
     status: "Live Demo",
@@ -157,6 +171,7 @@ export const projects: Project[] = [
   },
   {
     name: "AI Business Suite — Intelligent Tools Platform",
+    category: "ai",
     description:
       "An all-in-one multi-model AI productivity suite featuring conversational AI (BernAI), text humanization with custom tone tuning, computer vision image classification, and NLP text sentiment/topic classification.",
     status: "Live Demo",
@@ -167,7 +182,6 @@ export const projects: Project[] = [
       "/images/ai_suite2.png",
       "/images/ai_suite3.png",
       "/images/ai_suite4.png",
-
     ],
     highlights: [
       "BernAI conversational AI assistant with contextual memory and Q&A modes",
